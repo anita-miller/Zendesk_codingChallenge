@@ -2,7 +2,6 @@ package main;
 
 import java.util.ArrayList;
 
-import model.Via;
 /**
  * @author anitanaseri
  *
@@ -12,7 +11,7 @@ public class Ticket {
 	private String url;
 	private long id;
 	private String external_id;
-	private Via via;
+	//private Via via;
 	private String created_at;
 	private String updated_at;
 	private String type;
@@ -149,15 +148,15 @@ public class Ticket {
 	/**
 	 * @return the via
 	 */
-	public Via getVia() {
+	/*public Via getVia() {
 		return via;
 	}
 	/**
 	 * @param via the via to set
 	 */
-	public void setVia(Via via) {
+	/*public void setVia(Via via) {
 		this.via = via;
-	}
+	}*/
 	/**
 	 * @return the created_at
 	 */

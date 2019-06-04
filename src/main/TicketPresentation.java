@@ -44,6 +44,7 @@ public class TicketPresentation {
 							"\n------------------------------------------------------------------------------------------------------------------------------------------------");
 					headerFlag = false;
 				}
+				
 				//display tickets from the hashmap one by one
 				ShowIndividualTicket(ticketsList.get(counter));
 				
@@ -88,7 +89,16 @@ public class TicketPresentation {
 		ArrayList<String> tags = ticket.getTags();
 		String description = ticket.getDescription();
 		
+		//description = description.replaceAll("(.{1,50})\\s+", "$1\n");
 		
-		System.out.format("%-4d| %-4d | %-4d | %-50s| %-50s\n", id, requester_id, assignee_id, subject, tags);
+		System.out.format("%-4s " +":"+ "%+4d \n", "ID", id);
+		System.out.format("%-4s " +":"+ "%+4d \n", "Requester ID", requester_id);
+		System.out.format("%-4s " +":"+ "%+4d \n", "Assignee ID",assignee_id);
+		System.out.format("%-5s " +":"+ "%s\n","SUBJECT", subject);
+		System.out.format("%-5s " +":"+ "%s\n","Description", description);
+		System.out.format("%-5s " +":"+ "%s\n", "TAGS", tags);
+		System.out.println(
+				"\n------------------------------------------------------------------------------------------------------------------------------------------------\n");
+		
 	}
 }
