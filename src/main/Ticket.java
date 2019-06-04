@@ -4,11 +4,25 @@ import java.util.ArrayList;
 
 public class Ticket {
 
+	private long id;
 	private long requester_id;
 	private long assignee_id;
 	private ArrayList<String> tags;
 	private String subject;
 	private String description;
+	
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	/**
 	 * @return the requester_id
@@ -22,6 +36,7 @@ public class Ticket {
 	public void setRequester_id(long requester_id) {
 		this.requester_id = requester_id;
 	}
+	
 	/**
 	 * @return the assignee_id
 	 */
@@ -34,6 +49,7 @@ public class Ticket {
 	public void setAssignee_id(long assignee_id) {
 		this.assignee_id = assignee_id;
 	}
+	
 	/**
 	 * @return the tags
 	 */
@@ -46,6 +62,7 @@ public class Ticket {
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
+	
 	/**
 	 * @return the subject
 	 */
@@ -58,6 +75,7 @@ public class Ticket {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+	
 	/**
 	 * @return the description
 	 */
@@ -70,6 +88,7 @@ public class Ticket {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	
 	@Override
 	public String toString() {
