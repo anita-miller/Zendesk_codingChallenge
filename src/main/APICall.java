@@ -60,6 +60,18 @@ public class APICall {
 	
 	
 	/**
+	 * @return the ticketReader
+	 */
+	public TicketReader getTicketReader() {
+		return ticketReader;
+	}
+	/**
+	 * @param ticketReader the ticketReader to set
+	 */
+	public void setTicketReader(TicketReader ticketReader) {
+		this.ticketReader = ticketReader;
+	}
+	/**
 	 * Loging to Zendesk account with username and password and subdomain name created
 	 * and get tickets in JSON Array using GET API and pass it to TicketReader class
 	 * 
