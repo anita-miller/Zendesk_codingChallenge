@@ -46,8 +46,33 @@ public class Main {
 			System.out.println("Loging failed, Please re-run the application");
 
 		} else {
+			showOptions();
+			
+			//read users input
+			switch (scanner.nextInt()) {
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			default:
+				// message for wrong input.
+				System.out.println("Invalid Input");
+				break;
+			}
 			
 		}
+	}
+	
+	public static void showOptions() {
+		System.out.println("\n\t Please choose on of the options and Enter its number:");
+		System.out.println("\t 1. View All available Tickets");
+		System.out.println("\t 2. Find a ticket by ID");
+		System.out.println("\t 3. exit");
 	}
 
 }
