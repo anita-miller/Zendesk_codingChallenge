@@ -25,6 +25,8 @@ public class Main {
 
 		Scanner scanner = new Scanner(System.in);
 		
+		TicketPresentation ticketPresentation = new TicketPresentation();
+		
 		//get users details to make API call
 		System.out.println("\t Welcome to Zendesk Ticket Viewer Application");
 		System.out.print("\n Please Enter your Subdomain : ");
@@ -51,14 +53,24 @@ public class Main {
 			//read users input
 			switch (scanner.nextInt()) {
 			case 1:
-				
+				// Display all the tickets in HashMap, and pass Scanner so we can ask user if it wants
+				//more pages of tickets since each page only has 25 tickets in it 
+				ticketPresentation.showAllAvailableTickets(APIAuthorisation.getTicketReader().getHashmapOfTickets(), scanner);
 				break;
+				
 			case 2:
-				
+				System.out.print("\n Please Enter The ID for the Ticket :  ");
+				Long id = scanner.nextLong();
+
+				// Search the Ticket for the ID in HashMap
+				ticketPresentation.displayTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id);
 				break;
+				
 			case 3:
-				
-				break;
+				// Exit the app.
+				scanner.close();
+				System.exit(0); 
+
 			default:
 				// message for wrong input.
 				System.out.println("Invalid Input");
