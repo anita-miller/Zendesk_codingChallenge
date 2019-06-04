@@ -3,8 +3,9 @@
  */
 package main;
 
-import java.net.MalformedURLException;
-
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import org.json.JSONException;
 
 /**
@@ -61,9 +62,22 @@ public class APICall {
 	 * 
 	 * @param
 	 * @author anitanaseri
+	 * @throws IOException 
 	 * @date 2019-06-04
 	 */
-	public boolean login(){
+	public boolean login() throws IOException{
+		
+
+		URL url = new URL("https://" + subdomain + ".zendesk.com/api/v2/tickets.json");
+
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		
+		//To send a GET request, we’ll have to set the request method property to GET
+		connection.setRequestMethod("GET");
+		
+		//setting up the header that we only accept JSON
+		connection.setRequestProperty("Accept", "application/json");
+		
 		return false;
 	
 	}
