@@ -25,6 +25,7 @@ import model.Via;
 public class TicketReader {
 
 	StringBuilder StringResultOfJsonInput;
+	private HashMap<Long, Ticket> hashmapOfTickets = new HashMap<>();
 
 	/**
 	 * Takes the argument as InputStream from the GET API call to parse the String
@@ -78,6 +79,9 @@ public class TicketReader {
 			
 			//create new Ticket and set its variable from what is in Json 
 			Ticket ticket = createTicket(ticketJson);
+			
+			//store tickets in hashmap
+			hashmapOfTickets.put(id, ticket);
 		}
 	}
 	
