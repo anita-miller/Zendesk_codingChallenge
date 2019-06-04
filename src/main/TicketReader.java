@@ -112,4 +112,18 @@ public class TicketReader {
 		return ticket;
 		
 	}
+
+	/**
+	 * @return the hashmapOfTickets
+	 */
+	public HashMap<Long, Ticket> getHashmapOfTickets() {
+		return hashmapOfTickets;
+	}
+
+	/**
+	 * @param hashmapOfTickets the hashmapOfTickets to set
+	 */
+	public void setHashmapOfTickets(HashMap<Long, Ticket> hashmapOfTickets) {
+		this.hashmapOfTickets = hashmapOfTickets;
+	}
 }
