@@ -14,10 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import model.Source;
-import model.Ticket;
-import model.Via;
-
 /**
  * @author anitanaseri
  *
@@ -36,7 +32,7 @@ public class TicketReader {
 	 * @throws JSONException 
 	 * @date 2019-06-04
 	 */
-	public void ticketDataParser(InputStream responseStream) throws JSONException{
+	public void ticketDataReader(InputStream responseStream) throws JSONException{
 		
 		//An InputStreamReader is a bridge from byte streams to character streams,
 		//It reads bytes and decodes them into characters

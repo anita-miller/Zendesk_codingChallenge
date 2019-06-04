@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
-
 import org.json.JSONException;
-
-import core.TicketParser;
 import sun.misc.BASE64Encoder;
 
 /**
@@ -69,9 +66,10 @@ public class APICall {
 	 * @param
 	 * @author anitanaseri
 	 * @throws IOException 
+	 * @throws JSONException 
 	 * @date 2019-06-04
 	 */
-	public boolean login() throws IOException{
+	public boolean login() throws IOException, JSONException{
 		
 
 		URL url = new URL("https://" + subdomain + ".zendesk.com/api/v2/tickets.json");

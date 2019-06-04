@@ -1,7 +1,10 @@
 package main;
 
 import java.util.ArrayList;
-
+/**
+ * @author anitanaseri
+ *
+ */
 public class Ticket {
 
 	private long id;
