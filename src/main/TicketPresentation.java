@@ -108,6 +108,18 @@ public class TicketPresentation {
 	}
 	
 	public void showSpecificField(HashMap<Long, Ticket> ticketMap, Long key, String field) {
+		Ticket ticket = null;
+		//hashmap stores tickets by id as key, so we look for key input in keys of hashmap
+		if (ticketMap.containsKey(key)) {
+
+			ticket = ticketMap.get(key);
+			
+		} else {
+			//if the ticket ID doesn't exist
+			System.out.println("Ticket ID not found in the account");
+			return;
+			
+		}
 		
 		//all the fields in ticket
 		String url = ticket.getUrl();
@@ -116,14 +128,44 @@ public class TicketPresentation {
 		String type = ticket.getType();
 		String priority = ticket.getPriority();
 		String recipient = ticket.getRecipient();
-		long requester_id = ticket.getRequester_id();
-		long assignee_id = ticket.getAssignee_id();
-		long group_id = ticket.getGroup_id();
-		ArrayList<Integer> collaborator_id;
-		long problem_id = ticket.getProblem_id();
-		boolean has_incidents= ticket.isHas_incidents();
-		boolean is_public = ticket.isIs_public();
+		//long requester_id = ticket.getRequester_id();
+		//long assignee_id = ticket.getAssignee_id();
+		//long group_id = ticket.getGroup_id();
+		//ArrayList<Integer> collaborator_id;
+		//long problem_id = ticket.getProblem_id();
+		//boolean has_incidents= ticket.isHas_incidents();
+		//boolean is_public = ticket.isIs_public();
 		String due_at = ticket.getDue_at();
 		String satisfaction_rating = ticket.getSatisfaction_rating();
+		
+		if(field.toLowerCase().equals(url)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "URL", url);
+		}
+		else if(field.toLowerCase().equals(external_id)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "External id", external_id);
+		}
+		else if(field.toLowerCase().equals(updated_at)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "Updated at", updated_at);
+		}
+		else if(field.toLowerCase().equals(type)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "Type", type);
+		}
+		else if(field.toLowerCase().equals(priority)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "Priority", priority);
+		}
+		else if(field.toLowerCase().equals(recipient)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "Recipient", recipient);
+		}
+		else if(field.toLowerCase().equals(due_at)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "Due at", due_at);
+		}
+		else if(field.toLowerCase().equals(satisfaction_rating)) {
+			System.out.format("\n%-4s " +":"+ "%4s \n", "satisfaction rating", satisfaction_rating);
+		}
+		else {
+			System.out.format("\nInvalid Input\n");
+		}
+		
+		
 	}
 }
