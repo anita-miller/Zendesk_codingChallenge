@@ -66,13 +66,11 @@ public class Main {
 				ticketPresentation.displayTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id);
 				
 				//user can request to see more fields of the ticket
-				System.out.print("\n Select a fields from: url, external_id, updated_at, type, priority, recipient,"
-						+ " requester_id, assignee_id, group_id, collaborator_id, problem_id, has_incidents, is_public,"
-						+ " due_at and satisfaction_rating. \n");
+				System.out.print("Do you wish to read the ticket's description. \n");
 				
 				String requestedField = scanner.next();
 				
-				ticketPresentation.showSpecificField(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id, requestedField);
+				ticketPresentation.showDescription(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id, requestedField);
 				
 				break;
 				
