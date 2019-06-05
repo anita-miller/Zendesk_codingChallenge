@@ -22,9 +22,9 @@ public class TicketPresentation {
 		
 		//if number of tickets less than 25 show all of them in one page
 		if (ticketsList.size() < TICKETS_IN_LIST) {
-			System.out.format("%-4s | %-50s | %-4s | %-5s | %-5s| %-50s\n", "ID", "SUBJECT", "Org ID", "Created at", "Status", "Tags");
+			System.out.format("\n%-4s | %-50s | %-4s | %-5s | %-5s| %-50s\n", "ID", "SUBJECT", "Org ID", "Created at", "Status", "Tags");
 			System.out.println(
-					"\n------------------------------------------------------------------------------------------------------------------------------------------------");
+					"------------------------------------------------------------------------------------------------------------------------------------------------");
 			for (Ticket ticket : ticketsList) {
 				ShowIndividualTicket(ticket);
 			}
@@ -38,9 +38,9 @@ public class TicketPresentation {
 			while (counter < ticketsList.size() && input.toLowerCase().equals("yes")) {
 				if (headerFlag) {
 
-				System.out.format("%-4s | %-50s | %-4s | %-5s | %-5s| %-50s\n", "ID", "SUBJECT", "Org ID", "Created at", "Status", "Tags");
+				System.out.format("\n%-4s | %-50s | %-4s | %-5s | %-5s| %-50s\n", "ID", "SUBJECT", "Org ID", "Created at", "Status", "Tags");
 				System.out.println(
-						"\n------------------------------------------------------------------------------------------------------------------------------------------------");
+						"------------------------------------------------------------------------------------------------------------------------------------------------");
 							
 				headerFlag = false;
 				}
@@ -70,9 +70,9 @@ public class TicketPresentation {
 		//hashmap stores tickets by id as key, so we look for key input in keys of hashmap
 		if (ticketMap.containsKey(key)) {
 
-			System.out.format("%-4s | %-50s | %-4s | %-5s | %-5s| %-50s\n", "ID", "SUBJECT", "Org ID", "Created at", "Status", "Tags");
+			System.out.format("\n%-4s | %-50s | %-4s | %-5s | %-5s| %-50s\n", "ID", "SUBJECT", "Org ID", "Created at", "Status", "Tags");
 			System.out.println(
-					"\n------------------------------------------------------------------------------------------------------------------------------------------------");
+					"------------------------------------------------------------------------------------------------------------------------------------------------");
 			ShowIndividualTicket(ticketMap.get(key));
 		} else {
 			//if the ticket ID doesn't exist
@@ -107,7 +107,7 @@ public class TicketPresentation {
 		*/
 	}
 	
-	public void showSpecificField(Ticket ticket,String field) {
+	public void showSpecificField(HashMap<Long, Ticket> ticketMap, Long key, String field) {
 		
 		//all the fields in ticket
 		String url = ticket.getUrl();
@@ -118,21 +118,12 @@ public class TicketPresentation {
 		String recipient = ticket.getRecipient();
 		long requester_id = ticket.getRequester_id();
 		long assignee_id = ticket.getAssignee_id();
-		long submitter_id = ticket.getSubmitter_id();
 		long group_id = ticket.getGroup_id();
 		ArrayList<Integer> collaborator_id;
-		ArrayList<Integer> follower_ids;
-		long forum_topic_id = ticket.getForum_topic_id();
 		long problem_id = ticket.getProblem_id();
 		boolean has_incidents= ticket.isHas_incidents();
 		boolean is_public = ticket.isIs_public();
 		String due_at = ticket.getDue_at();
-		ArrayList<String> custom_fields = ticket.getCustom_fields();
 		String satisfaction_rating = ticket.getSatisfaction_rating();
-		ArrayList<Integer> sharing_agreement_ids =ticket.getSharing_agreement_ids();
-		ArrayList<String> fields = ticket.getFields();
-		ArrayList<Integer> followup_ids = ticket.getFollowup_ids();
-		long brand_id = ticket.getBrand_id();
-		boolean allow_channelback = ticket.isAllow_channelback();
 	}
 }

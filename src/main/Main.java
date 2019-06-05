@@ -61,9 +61,19 @@ public class Main {
 			case 2:
 				System.out.print("\n Please Enter The ID for the Ticket :  ");
 				Long id = scanner.nextLong();
-
-				// Search the Ticket for the ID in HashMap
+				
+				// Search the Ticket for the ID in HashMap and a summary of ticket is shown
 				ticketPresentation.displayTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id);
+				
+				//user can request to see more fields of the ticket
+				System.out.print("\n Select a fields from: url, external_id, updated_at, type, priority, recipient,"
+						+ " requester_id, assignee_id, group_id, collaborator_id, problem_id, has_incidents, is_public,"
+						+ " due_at and satisfaction_rating. \n");
+				
+				String requestedField = scanner.next();
+				
+				ticketPresentation.showSpecificField(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id, requestedField);
+				
 				break;
 				
 			case 3:
@@ -82,8 +92,8 @@ public class Main {
 	
 	public static void showOptions() {
 		System.out.println("\n\t Please choose on of the options and Enter its number:");
-		System.out.println("\t 1. View All available Tickets");
-		System.out.println("\t 2. Find a ticket by ID");
+		System.out.println("\t 1. View summary of All available Tickets");
+		System.out.println("\t 2. Find a ticket by ID and view any of the ticket's fields");
 		System.out.println("\t 3. exit");
 	}
 
