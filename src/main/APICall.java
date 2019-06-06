@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
 import org.json.JSONException;
-import sun.misc.BASE64Encoder;
 
 /**
  * @author anitanaseri
@@ -85,7 +84,7 @@ public class APICall {
 		
 
 		URL url = new URL("https://" + subdomain + ".zendesk.com/api/v2/tickets.json");
-
+		
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		//To send a GET request, we’ll have to set the request method property to GET
@@ -97,11 +96,11 @@ public class APICall {
 		
 		//Basic authentication relies on a Base64 encoded 'Authorization' header whose value consists of 
 		//the word 'Basic' followed by a space followed by the Base64 encoded name:password.
-		String logingDetails = "" + username + ":" + password + "";
-		String logingDetailsEncoded = new BASE64Encoder().encode(logingDetails.getBytes());
+        String logingDetails = "" + username + ":" + password + "";
+		String logingDetailsEncoded = new String(Base64.getEncoder().encodeToString(logingDetails.getBytes()));
 		connection.setRequestProperty("Authorization", "Basic " + logingDetailsEncoded);
 		
-		
+
 		//if HTTP response message was anything except OK
 		if (connection.getResponseCode() != 200) {
 			//print an error and show what was the repsonse code

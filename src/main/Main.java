@@ -3,7 +3,9 @@
  */
 package main;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.Scanner;
 
 import org.json.JSONException;
@@ -23,25 +25,26 @@ public class Main {
 		// Authentication class to make REST API call with basic authorization.
 		APICall APIAuthorisation = new APICall();
 
+		//scanner to read users input
 		Scanner scanner = new Scanner(System.in);
 		
 		TicketPresentation ticketPresentation = new TicketPresentation();
 		
-		//get users details to make API call
-		System.out.println("\t Welcome to Zendesk Ticket Viewer Application");
-		System.out.print("\n Please Enter your Subdomain : ");
-				
-				
-		APIAuthorisation.setSubdomain(scanner.nextLine());
-
-		System.out.print("\n Please Enter your email address : ");
-				
-		APIAuthorisation.setUsername(scanner.nextLine());
-
-		System.out.print("\n Please Enter your password : ");
+		//loading credentials from properties file, first create object of Properties class
+		Properties prop=new Properties(); 
 		
-		APIAuthorisation.setPassword(scanner.nextLine());
+		// Creating object of FileInputStream and give property file
+		FileInputStream ip= new FileInputStream("src/config.properties");
+		// load the property file
+		prop.load(ip);
 
+		//setting auth credentials to access API
+		APIAuthorisation.setSubdomain(prop.getProperty("auth_credential_subdomain"));
+		APIAuthorisation.setUsername(prop.getProperty("auth_credential_username"));
+		APIAuthorisation.setPassword(prop.getProperty("auth_credential_password"));
+
+		//get users details to make API call
+		System.out.println("Welcome to Zendesk Ticket Viewer Application");
 		
 		//if login in fails print an error
 		if (!APIAuthorisation.login()) {
@@ -89,10 +92,12 @@ public class Main {
 	}
 	
 	public static void showOptions() {
-		System.out.println("\n\t Please choose on of the options and Enter its number:");
-		System.out.println("\t 1. View summary of All available Tickets");
+		System.out.println("\nPlease choose on of the options and Enter number below:");
+		System.out.println("\n\t 1. View summary of All available Tickets");
 		System.out.println("\t 2. Find a ticket by ID and view any of the ticket's fields");
 		System.out.println("\t 3. exit");
+		System.out.println("\nEnter number:");
+		
 	}
 
 }
