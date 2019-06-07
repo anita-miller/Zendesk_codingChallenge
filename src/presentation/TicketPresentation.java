@@ -1,11 +1,13 @@
 /**
  * 
  */
-package main;
+package presentation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import logic.Ticket;
 
 /**
  * @author anitanaseri

@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.security.Key;
 import java.util.Base64;

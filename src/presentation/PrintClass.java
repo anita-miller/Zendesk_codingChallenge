@@ -1,4 +1,4 @@
-package main;
+package presentation;
 
 public class PrintClass {
 	public void welcomeMessage() {
