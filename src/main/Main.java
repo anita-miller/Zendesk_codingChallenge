@@ -54,34 +54,15 @@ public class Main {
 				break;
 				
 			case 2:
-				printer.enterTicketID();
-				Long id = scanner.nextLong();
 				
-				// Search the Ticket for the ID in HashMap and a summary of ticket is shown
-				ticketPresentation.displayTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id);
-				
-				//user can request to see more fields of the ticket
-				printer.wantToReadDesciption();
-				
-				//if user wants to read more ticketes
-				String input = scanner.next().toLowerCase();
-				if(input.equals("yes")) {
-					ticketPresentation.showDescription(APIAuthorisation.getTicketReader().getHashmapOfTickets(), id);
-					
-				}else if(input.equals("no")) {
-					//if user doesn't want to view more tickets exit
-					printer.thanksAndExitApp();
-					System.exit(0); 
-				}
-				
-				
+				ticketPresentation.displayTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(), scanner);
 				break;
 				
 			case 3:
 				// Exit the app.
 				printer.thanksAndExitApp();
 				System.exit(0); 
-
+				break;
 			default:
 				// message for wrong input.
 				printer.invalidInput();

@@ -15,62 +15,77 @@ import logic.Ticket;
  */
 public class TicketPresentation {
 	private final int TICKETS_IN_LIST = 25;
-	PrintClass printer = new PrintClass();
+	private PrintClass printer = new PrintClass();
 	
 	// Display all the tickets from the HashMap, 25 tickets at a time.
 	public void showAllAvailableTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 
 		ArrayList<Ticket> ticketsList = new ArrayList<>(ticketMap.values());
+		int counter = 0;
+		int pageLimit = TICKETS_IN_LIST;
+		boolean headerFlag = true;
+		String input = "yes";
 		
-		
-		//if number of tickets less than 25 show all of them in one page
-		if (ticketsList.size() < TICKETS_IN_LIST) {
-			printer.ticketHeader();
-			
-			for (Ticket ticket : ticketsList) {
-				showIndividualTicket(ticket);
+		while (counter < ticketsList.size() && input.toLowerCase().equals("yes")) {
+			if (headerFlag) {
+				printer.ticketHeader();
+				headerFlag = false;
 			}
-		//if there are more than 25 tickets
-		} else {
-			int counter = 0;
-			int pageLimit = TICKETS_IN_LIST;
-			boolean headerFlag = true;
-			String input = "yes";
+			//
+			//display tickets from the hashmap one by one
+			showIndividualTicket(ticketsList.get(counter));
 			
-			while (counter < ticketsList.size() && input.toLowerCase().equals("yes")) {
-				if (headerFlag) {
-					printer.ticketHeader();
-					headerFlag = false;
-				}
-				//
-				//display tickets from the hashmap one by one
-				showIndividualTicket(ticketsList.get(counter));
+			counter++;
+			
+			// everytime counter passes multiply of 25, ask user if more pages should be loaded
+			//if yes to print new page header header set flag to true
+			//pageLimit keeps track of what tickets per page, 0-25 first page, 25-50 second page,...
+			if (counter + 1> pageLimit) {
 				
-				counter++;
-				
-				//if all tickets are shown thank and exit the application
-				if (ticketsList.size() - counter == 0) {
-					printer.endOfListThankAndExitApp();
-					System.exit(0); 
-				}
+				printer.wantToReadMoreTickets();
+				input = scanner.next();
+				pageLimit += TICKETS_IN_LIST;
+				headerFlag = true;
+			}
+			//if all tickets are shown thank and exit the application
+			if (ticketsList.size() - counter == 0) {
+				printer.endOfListThankAndExitApp();
+				System.exit(0); 
+			}
 
-				// when counter reaches 25 ask user if it wants more tickets if yes set header flag
-				//to true to print new header for new page
-				//pageLimit keeps track of what tickets per page, 0-25 first page, 25-50 second page,...
-				if (counter + 1> pageLimit) {
-					
-					printer.wantToReadMoreTickets();
-					input = scanner.next();
-					pageLimit += TICKETS_IN_LIST;
-					headerFlag = true;
-				}
-			}
+		}
+		//if user wishes to leave
+		if(input.toLowerCase().equals("no")) {
+			printer.thanksAndExitApp();
+			System.exit(0); 
 		}
 	}
-
+			
 	// Display ticket with the user input field ID as a key.
-	public void displayTicketById(HashMap<Long, Ticket> ticketMap, Long key) {
+	public void displayTicketById(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
+
+		printer.enterTicketID();
+		Long id = scanner.nextLong();
+		// Search the Ticket for the ID in HashMap and a summary of ticket is shown
+		displaySummaryTicketById(ticketMap, id);
 		
+		//user can request to see more fields of the ticket
+		printer.wantToReadDesciption();
+		
+		//if user wants to read more ticketes
+		String input = scanner.next().toLowerCase();
+		if(input.equals("yes")) {
+			showDescription(ticketMap, id);
+			
+		}else if(input.equals("no")) {
+			//if user doesn't want to view more tickets exit
+			printer.thanksAndExitApp();
+			System.exit(0); 
+		}
+		
+	}
+	public void displaySummaryTicketById(HashMap<Long, Ticket> ticketMap, Long key) {
+
 		//hashmap stores tickets by id as key, so we look for key input in keys of hashmap
 		if (ticketMap.containsKey(key)) {
 			printer.ticketHeader();
