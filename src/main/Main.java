@@ -3,9 +3,7 @@
  */
 package main;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.Scanner;
 
 import org.json.JSONException;
@@ -22,30 +20,7 @@ public class Main {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException, JSONException {
-		// Authentication class to make REST API call with basic authorization.
-		APICall APIAuthorisation = new APICall();
-
-		//scanner to read users input
-		Scanner scanner = new Scanner(System.in);
 		
-		TicketPresentation ticketPresentation = new TicketPresentation();
-		
-
-		//loading credentials from properties file, first create object of Properties class
-		Properties prop=new Properties(); 
-		PrintClass printer = new PrintClass();
-		 		
-		// Creating object of FileInputStream and give property file
-		FileInputStream ip= new FileInputStream("src/config.properties");
-		// load the property file
-		prop.load(ip);
-		
-		//setting auth credentials to access API
-		APIAuthorisation.setSubdomain(prop.getProperty("auth_credential_subdomain"));
-		APIAuthorisation.setUsername(prop.getProperty("auth_credential_username"));
-		APIAuthorisation.setPassword(prop.getProperty("auth_credential_password"));
-		
-
 		
 		// Authentication class to make REST API call with basic authorization.
 		APICall APIAuthorisation = new APICall();
