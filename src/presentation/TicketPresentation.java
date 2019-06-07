@@ -84,7 +84,7 @@ public class TicketPresentation {
 		}
 		
 	}
-	public void displaySummaryTicketById(HashMap<Long, Ticket> ticketMap, Long key) {
+	public Ticket displaySummaryTicketById(HashMap<Long, Ticket> ticketMap, Long key) {
 
 		//hashmap stores tickets by id as key, so we look for key input in keys of hashmap
 		if (ticketMap.containsKey(key)) {
@@ -95,6 +95,8 @@ public class TicketPresentation {
 			//if the ticket ID doesn't exist
 			System.out.println("Sorry , We couldn't find your requested ticket ID");
 		}
+		
+		return ticketMap.get(key);
 	}
 
 	//show deatils of a given ticken
