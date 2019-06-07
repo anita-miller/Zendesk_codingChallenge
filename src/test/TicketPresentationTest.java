@@ -52,4 +52,31 @@ public class TicketPresentationTest {
 	
 	}
 	
+
+	@Before
+	public void setUpDisplaySummaryTicketByIdReturnsErrorforWrongID() {
+	    System.setOut(new PrintStream(outContent));
+	}
+	@After
+	public void restoreStreams() {
+	    System.setOut(originalOut);
+	}
+	
+	@Test
+	public void displaySummaryTicketByIdReturnsErrorforWrongIDTest(){
+		Long wrongID = (long) 200;
+		APIAuthorisation.getTicketReader().getHashmapOfTickets();
+		TicketPresentation ticketPresentation = new TicketPresentation();	
+		
+		//check if the ticket with ID 1 is fethced correctly
+		ticketPresentation.displaySummaryTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(),wrongID);
+		
+		assertEquals("Sorry , We couldn't find your requested ticket ID".trim(), outContent.toString().trim());
+	}
+	
+	
+	@Test
+	public void testFetchAllTickets(){
+	
+	}	
 }
