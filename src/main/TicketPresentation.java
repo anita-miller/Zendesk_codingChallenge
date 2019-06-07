@@ -72,10 +72,11 @@ public class TicketPresentation {
 		//hashmap stores tickets by id as key, so we look for key input in keys of hashmap
 		if (ticketMap.containsKey(key)) {
 			printer.ticketHeader();
+			showIndividualTicket(ticketMap.get(key));
 			
 		} else {
 			//if the ticket ID doesn't exist
-			System.out.println("Ticket ID not found in the account");
+			System.out.println("Sorry , We couldn't find your requested ticket ID");
 		}
 	}
 
@@ -85,14 +86,16 @@ public class TicketPresentation {
 		long id = ticket.getId();
 		long requester_id = ticket.getRequester_id();
 		long assignee_id = ticket.getAssignee_id();
+		long organisation_id = ticket.getOrganisation_id();
 		String subject = ticket.getSubject();
+		String status = ticket.getStatus();
+		String priority = ticket.getPriority();
+		String created_at = ticket.getCreated_at();
 		ArrayList<String> tags = ticket.getTags();
 
 		//description = description.replaceAll("(.{1,50})\\s+", "$1\n");
-		System.out.format("%-4d | %-50s | %-6d | %-6d | %-50s\n", id, subject, requester_id, assignee_id, tags);
-		
-		System.out.println(
-				"\n----------------------------------------------------------------------------------------------------------------------------\n");
+		System.out.format("%-4d | %-50s | %-20s | %-20s | %-20s| %-6d | %-6d | %-14d | %-50s\n", id, subject, status, priority, created_at,requester_id, assignee_id, organisation_id,tags);
+		printer.seperatingLine();
 		
 	}
 	

@@ -96,7 +96,11 @@ public class TicketReader {
 		ticket.setId(ticketJson.optLong("id"));
 		ticket.setRequester_id(ticketJson.getLong("requester_id"));
 		ticket.setAssignee_id(ticketJson.optLong("assignee_id"));
+		ticket.setOrganisation_id(ticketJson.optLong("organization_id"));
 		ticket.setSubject(ticketJson.optString("subject"));
+		ticket.setStatus(ticketJson.optString("status"));
+		ticket.setPriority(ticketJson.optString("priority"));
+		ticket.setCreated_at(ticketJson.optString("created_at"));
 		ticket.setDescription(ticketJson.optString("description"));
 		
 		//since tags are a list we need to extract it 

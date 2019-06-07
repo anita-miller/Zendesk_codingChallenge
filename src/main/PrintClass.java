@@ -23,11 +23,15 @@ public class PrintClass {
 	public void endOfListThankAndExitApp() {
 		System.out.println("Reached the end of the Tickets' List,\nThank You ! \nExiting the Application. ");
 	}
-	public void ticketHeader(){
-		System.out.format("\n%-4s | %-50s | %-10s | %-13s| %-50s\n", "ID", "SUBJECT", "Requester Id", "Assignee Id", "Tags");
+	
+	public void seperatingLine() {
 		System.out.println(
-				"\n----------------------------------------------------------------------------------------------------------------------------\n");
+				"\n-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 		
+	}
+	public void ticketHeader(){
+		System.out.format("\n%-4s | %-50s | %-20s | %-20s | %-20s| %-10s | %-13s| %-15s| %-50s\n", "ID", "SUBJECT","Status", "Priority", "Created At","Requester ID", "Assignee ID","Organisation ID", "Tags");
+		seperatingLine();
 	}
 	public void wantToReadMoreTickets() {
 		System.out.print("\n\n Do you wish to see more tickets? : ");
