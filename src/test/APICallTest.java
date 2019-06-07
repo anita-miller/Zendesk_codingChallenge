@@ -46,5 +46,18 @@ public class APICallTest {
 		assertEquals(401, authentication.runningbasicAuth(connection));
 	}
 	
+	@Test
+	public void settingUpConnectionAPINotAvailableTest() throws IOException, JSONException {
+
+		//setting an url that we know isnt available
+		APICall authentication = new APICall();
+		
+		URL url = new URL("https://api.github.com/users/wefbrwwgre");
+		
+		System.out.print(authentication.settingUpConnection(url).getResponseCode());
+		assertEquals(404, authentication.settingUpConnection(url).getResponseCode());
+	}
+	
+	
 
 }
