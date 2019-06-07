@@ -22,6 +22,9 @@ public class APICall {
 	private String username;
 	private String password;
 	private TicketReader ticketReader = new TicketReader();
+	HttpURLConnection connection;
+	private final int OK_RESPONSE_CODE = 200;
+	private int responseCode;
 	
 	/**
 	 * Loging to Zendesk account with username and password and subdomain name created
@@ -37,9 +40,36 @@ public class APICall {
 		
 		//loading credentials from properties file, and decrypt them 
 		receiveAndDecryptCeredentials();
-		
 		URL url = new URL("https://" + subdomain + ".zendesk.com/api/v2/tickets.json");
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection = settingUpConnection(url);
+		responseCode = runningbasicAuth(connection);
+				
+		//if HTTP response message was anything except OK
+		if (responseCode != OK_RESPONSE_CODE) {
+			//print an error and show what was the repsonse code
+			System.out.println("Sorry, Currently we cannot connect to the subdomain, Status code is : " + connection.getResponseCode());
+			return false;
+			
+		} else {
+
+			// Sending the received InputStream to Ticket reader to create Tickets
+			ticketReader.ticketDataReader(connection.getInputStream());
+			return true;
+		}
+	
+	}
+	
+	/**
+	 *  connect to API with basic auth and returns the response code 
+	 * 
+	 * @param
+	 * @author anitanaseri
+	 * @throws IOException 
+	 * @date 2019-06-07
+	 */
+	public HttpURLConnection settingUpConnection(URL url) throws IOException {
+
+		connection = (HttpURLConnection) url.openConnection();
 		
 		//To send a GET request, we’ll have to set the request method property to GET
 		connection.setRequestMethod("GET");
@@ -47,29 +77,37 @@ public class APICall {
 		//setting up the header that we only accept JSON
 		connection.setRequestProperty("Accept", "application/json");
 		
+		return connection;
+	}
+	/**
+	 * run basic auth and returns the response code
+	 * 
+	 * @param
+	 * @author anitanaseri
+	 * @throws IOException 
+	 * @date 2019-06-07
+	 */
+	public int runningbasicAuth(HttpURLConnection connection) throws IOException {
+
 		//Basic authentication relies on a Base64 encoded 'Authorization' header whose value consists of 
 		//the word 'Basic' followed by a space followed by the Base64 encoded name:password.
         String logingDetails = "" + username + ":" + password + "";
+        
+
 		String logingDetailsEncoded = new String(Base64.getEncoder().encodeToString(logingDetails.getBytes()));
 		connection.setRequestProperty("Authorization", "Basic " + logingDetailsEncoded);
 		
-		//if HTTP response message was anything except OK
-		if (connection.getResponseCode() != 200) {
-			//print an error and show what was the repsonse code
-			System.out.println("Cannot connect to the subdomain, Status code is : " + connection.getResponseCode());
-			return false;
-			
-		} else {
-
-			// Sending the received InputStream to Ticket reader to create Tickets
-			ticketReader.ticketDataReader(connection.getInputStream());
-
-		}
-		return true;
-	
+		return connection.getResponseCode();
 	}
 	
-	//loading credentials from properties file, and decrypt them 
+	/**
+	 * loading credentials from properties file, and decrypt them 
+	 * 
+	 * @param
+	 * @author anitanaseri
+	 * @throws IOException 
+	 * @date 2019-06-05
+	 */
 	public void receiveAndDecryptCeredentials() throws IOException {
 		Properties prop=new Properties(); 
 		
@@ -105,6 +143,13 @@ public class APICall {
 	}
 	
 	/**
+	 * @return the subdomain
+	 */
+	public String getSubdomain() {
+		return subdomain;
+	}
+
+	/**
 	 * @param username the username to set
 	 */
 	public void setUsername(String username) {
@@ -123,6 +168,20 @@ public class APICall {
 	 */
 	public TicketReader getTicketReader() {
 		return ticketReader;
+	}
+
+	/**
+	 * @return the responseCode
+	 */
+	public int getResponseCode() {
+		return responseCode;
+	}
+
+	/**
+	 * @param responseCode the responseCode to set
+	 */
+	public void setResponseCode(int responseCode) {
+		this.responseCode = responseCode;
 	}
 
 }
