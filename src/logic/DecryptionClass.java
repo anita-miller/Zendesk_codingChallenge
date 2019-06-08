@@ -4,7 +4,10 @@ import java.security.Key;
 import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-
+/**
+ * @author anitanaseri
+ *
+ */
 class DecryptionClass {
 
     private static final String ALGORITHM = "AES";
@@ -30,7 +33,7 @@ class DecryptionClass {
         
     }
 
-    private static Key generateKey() throws Exception {
+    private Key generateKey() throws Exception {
         Key key = new SecretKeySpec(keyValue, ALGORITHM);
         return key;
     }

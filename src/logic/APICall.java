@@ -40,6 +40,7 @@ public class APICall {
 		
 		//loading credentials from properties file, and decrypt them 
 		receiveAndDecryptCeredentials();
+		
 		URL url = new URL("https://" + subdomain + ".zendesk.com/api/v2/tickets.json");
 		connection = settingUpConnection(url);
 		responseCode = runningbasicAuth(connection);

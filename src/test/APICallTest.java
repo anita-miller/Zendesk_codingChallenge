@@ -8,8 +8,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Base64;
-
 import org.json.JSONException;
 import org.junit.Test;
 

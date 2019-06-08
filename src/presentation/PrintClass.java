@@ -17,7 +17,7 @@ public class PrintClass {
 	}
 	
 	public void wantToReadDesciption(){
-		System.out.print("Do you wish to read the ticket's description. \n");
+		System.out.print("Do you wish to read the ticket's description?   \n");
 	}
 	
 	public void thanksAndExitApp() {
@@ -33,7 +33,7 @@ public class PrintClass {
 		
 	}
 	public void ticketHeader(){
-		System.out.format("\n%-4s | %-50s | %-20s | %-20s | %-20s| %-10s | %-13s| %-15s| %-50s\n", "ID", "SUBJECT","Status", "Priority", "Created At","Requester ID", "Assignee ID","Organisation ID", "Tags");
+		System.out.format("\n%-4s | %-50s | %-20s | %-20s | %-20s| %-10s | %-13s| %-15s| %-30s\n", "ID", "SUBJECT","Status", "Priority", "Created At","Requester ID", "Assignee ID","Organisation ID", "Tags");
 		seperatingLine();
 	}
 	public void wantToViewNextPageOfTicket() {
