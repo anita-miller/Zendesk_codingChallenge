@@ -7,6 +7,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.After;
 import org.junit.Before;
@@ -21,8 +24,10 @@ import presentation.TicketPresentation;
  */
 public class TicketPresentationTest {
 	private APICall APIAuthorisation;
-	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	private final PrintStream originalOut = System.out;
+	private final ByteArrayOutputStream displaySummaryTicketByIdReturnsErrorforWrongIDOutContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream showIndividualTicketOutContent = new ByteArrayOutputStream();
+	
+	private Ticket ticket;
 
 	@Before
 	public void setUpDisplaySummaryTicketByIdFetchedCorrectly() {
@@ -42,41 +47,80 @@ public class TicketPresentationTest {
 	
 	@Test
 	public void displaySummaryTicketByIdFetchedCorrectlyTest(){
-
-		APIAuthorisation.getTicketReader().getHashmapOfTickets();
+		//If the tickets are deleted/modified this test will no longer pass since ticket at id 1 won't have this 
+		//specific subject
 		TicketPresentation ticketPresentation = new TicketPresentation();	
 		
 		//check if the ticket with ID 1 is fethced correctly
-		Ticket actual = ticketPresentation.displaySummaryTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(),(long) 1.0);
-		assertEquals("Sample ticket: Meet the ticket", actual.getSubject());
+		Ticket actualTicketWithID_1 = ticketPresentation.displaySummaryTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(),(long) 1.0);
+		System.out.print(actualTicketWithID_1.getSubject());
+		assertEquals("Sample ticket: Meet the ticket", actualTicketWithID_1.getSubject());
 	
 	}
 	
 
 	@Before
-	public void setUpDisplaySummaryTicketByIdReturnsErrorforWrongID() {
-	    System.setOut(new PrintStream(outContent));
+	public void setUpStreams() {
+	    System.setOut(new PrintStream(displaySummaryTicketByIdReturnsErrorforWrongIDOutContent));
 	}
+
 	@After
 	public void restoreStreams() {
-	    System.setOut(originalOut);
+		System.setOut(null);
 	}
 	
 	@Test
 	public void displaySummaryTicketByIdReturnsErrorforWrongIDTest(){
 		Long wrongID = (long) 200;
-		APIAuthorisation.getTicketReader().getHashmapOfTickets();
 		TicketPresentation ticketPresentation = new TicketPresentation();	
 		
 		//check if the ticket with ID 1 is fethced correctly
 		ticketPresentation.displaySummaryTicketById(APIAuthorisation.getTicketReader().getHashmapOfTickets(),wrongID);
 		
-		assertEquals("Sorry , We couldn't find your requested ticket ID".trim(), outContent.toString().trim());
+		assertEquals("Sorry , We couldn't find your requested ticket ID".trim(),
+				displaySummaryTicketByIdReturnsErrorforWrongIDOutContent.toString().trim());
 	}
 	
+	@Before
+	public void SetupshowIndividualTicket() {
+		ticket = new Ticket();
+		
+		ticket.setId(1);
+		ticket.setRequester_id((long) 381345057874.0);
+		ticket.setAssignee_id((long) 381285073454.0);
+		ticket.setOrganisation_id(0);
+		ticket.setSubject("Sample ticket: Meet the ticket");
+		ticket.setStatus("open");
+		ticket.setPriority("normal");
+		ticket.setCreated_at("2019-06-03T23:36:20Z");
+		ticket.setDescription("");
+		
+		//since tags are a list we need to extract it 
+		ArrayList<String> arrayofTags = new ArrayList<>();
+
+		arrayofTags.add("sample");
+		arrayofTags.add("support");
+		arrayofTags.add("zendesk");
+		ticket.setTags(arrayofTags);
+	}
 	
+	@After
+	public void restoreStreamsshowIndividualTickettest() {
+		System.setOut(null);
+	}
 	@Test
-	public void testFetchAllTickets(){
+	public void showIndividualTickettest(){
+		System.setOut(new PrintStream(showIndividualTicketOutContent));
+
+		TicketPresentation ticketPresentation = new TicketPresentation();	
+		
+		String expectedPrintValue = "1    | Sample ticket: Meet the ticket"
+				+ "                     | open                 | normal               | 2019-06-03T23:36:20Z| 381345057874 | 381285073454 "
+				+ "| 0              | [sample, support, zendesk]                        "+"\n\n----------------------------------------------"
+				+ "---------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
 	
-	}	
+		ticketPresentation.showIndividualTicket(ticket);
+		assertEquals(expectedPrintValue.trim(),
+				showIndividualTicketOutContent.toString().trim());
+	}
 }
