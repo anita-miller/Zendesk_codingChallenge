@@ -14,7 +14,8 @@ import logic.Ticket;
  *
  */
 public class TicketPresentation {
-	private final int TICKETS_IN_LIST = 25;
+	private final int NUM_TICKETS_IN_LIST = 25;
+	
 	private PrintClass printer = new PrintClass();
 	
 	// Display all the tickets from the HashMap, 25 tickets at a time.
@@ -22,42 +23,67 @@ public class TicketPresentation {
 
 		ArrayList<Ticket> ticketsList = new ArrayList<>(ticketMap.values());
 		int counter = 0;
-		int pageLimit = TICKETS_IN_LIST;
+		int pageLimit = NUM_TICKETS_IN_LIST;
 		boolean headerFlag = true;
-		String input = "yes";
+		int input = 1;
 		
-		while (counter < ticketsList.size() && input.toLowerCase().equals("yes")) {
+		while (counter < ticketsList.size() && input != 3) {
 			if (headerFlag) {
 				printer.ticketHeader();
 				headerFlag = false;
 			}
 			//
-			//display tickets from the hashmap one by one
+			//display tickets from the hash map one by one
 			showIndividualTicket(ticketsList.get(counter));
 			
 			counter++;
 			
-			// everytime counter passes multiply of 25, ask user if more pages should be loaded
-			//if yes to print new page header header set flag to true
-			//pageLimit keeps track of what tickets per page, 0-25 first page, 25-50 second page,...
-			if (counter + 1> pageLimit) {
-				
-				printer.wantToReadMoreTickets();
-				input = scanner.next();
-				pageLimit += TICKETS_IN_LIST;
-				headerFlag = true;
-			}
 			//if all tickets are shown thank and exit the application
 			if (ticketsList.size() - counter == 0) {
 				printer.endOfListThankAndExitApp();
 				System.exit(0); 
 			}
-
-		}
-		//if user wishes to leave
-		if(input.toLowerCase().equals("no")) {
-			printer.thanksAndExitApp();
-			System.exit(0); 
+			
+			//Every time counter passes multiply of 25, ask user if more pages should be loaded
+			//if yes to print new page header header set flag to true
+			//pageLimit keeps track of what tickets per page, 0-25 first page, 25-50 second page,...
+			if (counter >= pageLimit) {
+				//when counter is 25 and we at first page, there wont be prev option
+				if(counter ==NUM_TICKETS_IN_LIST) {
+					printer.wantToViewNextPageOfTicket();
+					input = scanner.nextInt();
+					
+					if(input == 1) {
+						pageLimit += NUM_TICKETS_IN_LIST;
+					////if user wishes to leave
+					}else if(input == 2) {
+						printer.thanksAndExitApp();
+						System.exit(0); 
+					}else {
+						printer.invalidInput();
+					}
+				}
+				else {
+					printer.wantToViewNextOrPrevPageOfTicket();
+					input = scanner.nextInt();
+					
+					if(input == 1) {
+						pageLimit += NUM_TICKETS_IN_LIST;
+					////if user wishes to leave
+					}else if(input == 2) {
+						pageLimit = pageLimit - NUM_TICKETS_IN_LIST;
+						counter = counter - 2*NUM_TICKETS_IN_LIST;
+					}else if(input == 3) {
+						printer.thanksAndExitApp();
+						System.exit(0); 
+					}else {
+						printer.invalidInput();
+					}
+				}
+				
+				
+				headerFlag = true;
+			}
 		}
 	}
 			
