@@ -24,8 +24,7 @@ public class TicketReader {
 	private HashMap<Long, Ticket> hashmapOfTickets = new HashMap<>();
 
 	/**
-	 * Takes the argument as InputStream from the GET API call to parse the String
-	 * into Ticket Object
+	 * Takes the argument as InputStream from the GET API call to parse it into String
 	 *
 	 * @param
 	 * @author anitanaseri
@@ -88,7 +87,7 @@ public class TicketReader {
 	 * @throws JSONException 
 	 * @date 2019-06-04
 	 */
-	private Ticket createTicket(JSONObject ticketJson) throws JSONException {
+	public Ticket createTicket(JSONObject ticketJson) throws JSONException {
 		
 		//create new Ticket and set its variable from what is in Json 
 		Ticket ticket = new Ticket();
@@ -129,5 +128,19 @@ public class TicketReader {
 	 */
 	public void setHashmapOfTickets(HashMap<Long, Ticket> hashmapOfTickets) {
 		this.hashmapOfTickets = hashmapOfTickets;
+	}
+
+	/**
+	 * @return the stringResultOfJsonInput
+	 */
+	public StringBuilder getStringResultOfJsonInput() {
+		return StringResultOfJsonInput;
+	}
+
+	/**
+	 * @param stringResultOfJsonInput the stringResultOfJsonInput to set
+	 */
+	public void setStringResultOfJsonInput(StringBuilder stringResultOfJsonInput) {
+		StringResultOfJsonInput = stringResultOfJsonInput;
 	}
 }
