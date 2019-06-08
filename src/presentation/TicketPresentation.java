@@ -15,25 +15,25 @@ import logic.Ticket;
  */
 public class TicketPresentation {
 	private final int NUM_TICKETS_IN_LIST = 25;
-	
 	private PrintClass printer = new PrintClass();
+
+	private int counter = 0;
+	private int pageLimitTicketIndex = NUM_TICKETS_IN_LIST;
+	private boolean headerFlag = true;
+	private int input = 1;
 	
 	// Display all the tickets from the HashMap, 25 tickets at a time.
 	public void showAllAvailableTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 
 		ArrayList<Ticket> ticketsList = new ArrayList<>(ticketMap.values());
-		int counter = 0;
-		int pageLimit = NUM_TICKETS_IN_LIST;
-		boolean headerFlag = true;
-		int input = 1;
 		
 		while (counter < ticketsList.size() && input != 3) {
 			if (headerFlag) {
 				printer.ticketHeader();
 				headerFlag = false;
 			}
-			//
-			//display tickets from the hash map one by one
+			
+			//display tickets from the hash map one by one, counter is index of tickets 0 to ticketsList.size()
 			showIndividualTicket(ticketsList.get(counter));
 			
 			counter++;
@@ -44,47 +44,57 @@ public class TicketPresentation {
 				System.exit(0); 
 			}
 			
-			//Every time counter passes multiply of 25, ask user if more pages should be loaded
-			//if yes to print new page header header set flag to true
-			//pageLimit keeps track of what tickets per page, 0-25 first page, 25-50 second page,...
-			if (counter >= pageLimit) {
+			//pagelimit variable is based on counter, when counter shows 0-25 pagelimit is 25, 
+			// then increases by 25 to let counter to show tickets at index 25-50 and so on
+			if (counter >= pageLimitTicketIndex) {
 				//when counter is 25 and we at first page, there wont be prev option
 				if(counter ==NUM_TICKETS_IN_LIST) {
-					printer.wantToViewNextPageOfTicket();
-					input = scanner.nextInt();
-					
-					if(input == 1) {
-						pageLimit += NUM_TICKETS_IN_LIST;
-					////if user wishes to leave
-					}else if(input == 2) {
-						printer.thanksAndExitApp();
-						System.exit(0); 
-					}else {
-						printer.invalidInput();
-					}
+					displayNextPageOfTickets(scanner);
 				}
 				else {
-					printer.wantToViewNextOrPrevPageOfTicket();
-					input = scanner.nextInt();
-					
-					if(input == 1) {
-						pageLimit += NUM_TICKETS_IN_LIST;
-					////if user wishes to leave
-					}else if(input == 2) {
-						pageLimit = pageLimit - NUM_TICKETS_IN_LIST;
-						counter = counter - 2*NUM_TICKETS_IN_LIST;
-					}else if(input == 3) {
-						printer.thanksAndExitApp();
-						System.exit(0); 
-					}else {
-						printer.invalidInput();
-					}
+					displayPrevPageOfTickets(scanner);
 				}
-				
-				
 				headerFlag = true;
 			}
 		}
+	}
+	
+	public void displayPrevPageOfTickets(Scanner scanner) {
+		printer.wantToViewNextOrPrevPageOfTicket();
+		input = scanner.nextInt();
+		
+		if(input == 1) {
+			//increase pageLimitTicketIndex so next page of ticket can be read
+			pageLimitTicketIndex += NUM_TICKETS_IN_LIST;
+		////if user wishes to leave
+		}else if(input == 2) {
+			
+			pageLimitTicketIndex = pageLimitTicketIndex - NUM_TICKETS_IN_LIST;
+			//decrease counter by twice as much so it shows prev page tickets up to pageLimitTicketIndex
+			counter = counter - 2*NUM_TICKETS_IN_LIST;
+		}else if(input == 3) {
+			printer.thanksAndExitApp();
+			System.exit(0); 
+		}else {
+			printer.invalidInput();
+		}
+		
+	}
+	
+	public void displayNextPageOfTickets(Scanner scanner) {
+		printer.wantToViewNextPageOfTicket();
+		input = scanner.nextInt();
+		
+		if(input == 1) {
+			pageLimitTicketIndex += NUM_TICKETS_IN_LIST;
+		////if user wishes to leave
+		}else if(input == 2) {
+			printer.thanksAndExitApp();
+			System.exit(0); 
+		}else {
+			printer.invalidInput();
+		}
+		
 	}
 			
 	// Display ticket with the user input field ID as a key.
