@@ -1,7 +1,7 @@
 /**
  * 
  */
-package main;
+
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -23,7 +23,7 @@ public class Main {
 	 * @throws JSONException 
 	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws IOException, JSONException {
+	public static void main(String[] args) throws IOException, JSONException{
 		
 		
 		// Authentication class to make REST API call with basic authorization.
