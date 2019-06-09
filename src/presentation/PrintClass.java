@@ -37,7 +37,8 @@ public class PrintClass {
 	public void wantToReadDesciption(){
 		System.out.println("\n\nPlease choose on of the options and enter number below:");
 		System.out.println(ANSI_RED + "\n\t 1. " + ANSI_RESET +" Read the ticket's description");
-		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +" exit");
+		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +" Go back to the menu");
+		System.out.println(ANSI_RED + "\n\t 3. " + ANSI_RESET +" exit");
 		System.out.println("\nEnter number:");
 		
 	}
@@ -69,25 +70,28 @@ public class PrintClass {
 
 		System.out.println("\n\nPlease choose on of the options and enter number below:");
 		System.out.println(ANSI_RED + "\n\t 1. " + ANSI_RESET +"View next page of tickets");
-		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +" Find a ticket by ID and view its description");
-		System.out.println(ANSI_RED + "\n\t 3. " + ANSI_RESET +"exit");
+		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +"Find a ticket by ID and view its description");
+		System.out.println(ANSI_RED + "\n\t 3. " + ANSI_RESET +"Go back to the menu");
+		System.out.println(ANSI_RED + "\n\t 4. " + ANSI_RESET +"Exit");
 		System.out.println("\nEnter number:");
 	}
 	
 	public void wantToViewNextOrPrevPageOfTicket() {
 		System.out.println("\n\nPlease choose on of the options and enter number below:");
-		System.out.println(ANSI_RED + "\n\t 1. " + ANSI_RESET +" View next page of tickets");
-		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +" View the previous page of tickets");
-		System.out.println(ANSI_RED + "\n\t 3. " + ANSI_RESET +" Find a ticket by ID and view its description");
-		System.out.println(ANSI_RED + "\n\t 4. " + ANSI_RESET +" exit");
+		System.out.println(ANSI_RED + "\n\t 1. " + ANSI_RESET +"View next page of tickets");
+		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +"View the previous page of tickets");
+		System.out.println(ANSI_RED + "\n\t 3. " + ANSI_RESET +"Find a ticket by ID and view its description");
+		System.out.println(ANSI_RED + "\n\t 4. " + ANSI_RESET +"Go back to the menu");
+		System.out.println(ANSI_RED + "\n\t 5. " + ANSI_RESET +"Exit");
 		System.out.println("\nEnter number:");
 	}
 	public void wantToViewPrevPageOfTicket() {
 
 		System.out.println("\n\nPlease choose on of the options and enter number below:");
 		System.out.println(ANSI_RED + "\n\t 1. " + ANSI_RESET +"View previous page of tickets");
-		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +" Find a ticket by ID and view its description");
-		System.out.println(ANSI_RED + "\n\t 3. " + ANSI_RESET +"exit");
+		System.out.println(ANSI_RED + "\n\t 2. " + ANSI_RESET +"Find a ticket by ID and view its description");
+		System.out.println(ANSI_RED + "\n\t 3. " + ANSI_RESET +"Go back to the menu");
+		System.out.println(ANSI_RED + "\n\t 4. " + ANSI_RESET +"Exit");
 		System.out.println("\nEnter number:");
 	}
 	

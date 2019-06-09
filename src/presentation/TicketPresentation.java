@@ -80,6 +80,9 @@ public class TicketPresentation {
 			displayPrevAndNextPageOfTickets(ticketMap, scanner);
 		}
 		else if(input == 4) {
+			goBackToMenu(ticketMap, scanner);
+		}
+		else if(input == 5) {
 			printer.thanksAndExitApp();
 			System.exit(0); 
 		}
@@ -103,6 +106,9 @@ public class TicketPresentation {
 			displayPrevPageOfTickets(ticketMap, scanner);
 		}
 		else if(input == 3) {
+			goBackToMenu(ticketMap, scanner);
+		}
+		else if(input == 4) {
 			printer.thanksAndExitApp();
 			System.exit(0); 
 		}else {
@@ -111,8 +117,7 @@ public class TicketPresentation {
 		}
 		
 	}
-	public void displayNextPageOfTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) 
-	{
+	public void displayNextPageOfTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 		printer.wantToViewNextPageOfTicket();
 		input = scanner.nextInt();
 		
@@ -125,6 +130,9 @@ public class TicketPresentation {
 			displayNextPageOfTickets(ticketMap, scanner);
 		}
 		else if(input == 3) {
+			goBackToMenu(ticketMap, scanner);
+		}
+		else if(input == 4) {
 			printer.thanksAndExitApp();
 			System.exit(0); 
 		}
@@ -146,8 +154,26 @@ public class TicketPresentation {
 	}
 	
 	
-	
-	
+	public void goBackToMenu(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
+		printer.showOptions();
+		input = scanner.nextInt();
+
+		if(input == 1) {
+			counter =0;
+			pageLimitTicketIndex = NUM_TICKETS_IN_LIST;
+			headerFlag = true;
+			showAllAvailableTickets(ticketMap, scanner);
+		}
+		else if(input == 2) { 
+			displayTicketById(ticketMap, scanner);
+		}
+		else {
+			// Exit the app.
+			printer.thanksAndExitApp();
+			System.exit(0); 
+		}
+		
+	}
 	//Displaying tickets based on their id
 	
 			
@@ -163,13 +189,16 @@ public class TicketPresentation {
 		printer.wantToReadDesciption();
 		
 		//if user wants to read more ticketes
-		int input = scanner.nextInt();
+		input = scanner.nextInt();
 		if(input == 1) {
 			
 			showDescription(ticketMap, id);
 			displayMoreTicketsByID(ticketMap, scanner);
 		}
 		else if(input == 2) {
+			goBackToMenu(ticketMap, scanner);
+		}
+		else if(input == 3) {
 			//if user doesn't want to view more tickets exit
 			printer.thanksAndExitApp();
 			System.exit(0); 
