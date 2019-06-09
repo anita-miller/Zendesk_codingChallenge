@@ -30,12 +30,9 @@ public class TicketReaderTest {
 	private Ticket expectedTicket;
 	
 	@Before
-	public void setUpticketDataReader() {
-		try {
-			authentication.login();
-		} catch (IOException | JSONException e) {
-			e.printStackTrace();
-		}
+	public void setUpticketDataReader() throws JSONException, IOException {
+		authentication.login();
+		
 		ticketReader = authentication.getTicketReader();
 	}
 	

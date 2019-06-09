@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.junit.After;
 import org.junit.Before;
@@ -112,10 +113,11 @@ public class TicketPresentationTest {
 
 		TicketPresentation ticketPresentation = new TicketPresentation();	
 		
-		String expectedPrintValue = "1    | Sample ticket: Meet the ticket"
-				+ "                     | open                 | normal               | 2019-06-03T23:36:20Z| 381345057874 | 381285073454 "
-				+ "| 0              | [sample, support, zendesk]                        "+"\n\n----------------------------------------------"
-				+ "---------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+		String expectedPrintValue = "-----------------------------------------------------------"
+				+ "---------------------------------------------------------------------------------------------------------\n"
+				+ "1    | Sample ticket: Meet the ticket                | open       | normal     | 2019-06-03T23:36:20Z"
+				+ "| 381345057874 | 381285073454 | [sample, support, zendesk]     ";
+		
 		//test that the ticket printed by showIndividualTicket() is same as expectedPrintValue
 		ticketPresentation.showIndividualTicket(ticket);
 		assertEquals(expectedPrintValue.trim(),
