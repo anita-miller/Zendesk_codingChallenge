@@ -76,7 +76,8 @@ public class TicketPresentation {
 			counter = counter - 2*NUM_TICKETS_IN_LIST;
 		}
 		else if(input == 3) {
-			displayTicketById(ticketMap, scanner);
+			wantTicketByIDAndBackToList(ticketMap, scanner);
+			displayPrevAndNextPageOfTickets(ticketMap, scanner);
 		}
 		else if(input == 4) {
 			printer.thanksAndExitApp();
@@ -98,7 +99,8 @@ public class TicketPresentation {
 			counter = counter - 2*NUM_TICKETS_IN_LIST;
 		////if user wishes to leave
 		}else if(input == 2) {
-			displayTicketById(ticketMap, scanner);
+			wantTicketByIDAndBackToList(ticketMap, scanner);
+			displayPrevPageOfTickets(ticketMap, scanner);
 		}
 		else if(input == 3) {
 			printer.thanksAndExitApp();
@@ -119,8 +121,8 @@ public class TicketPresentation {
 		////if user wishes to leave
 		}
 		else if(input == 2) { 
-			displayTicketById(ticketMap, scanner);
-			
+			wantTicketByIDAndBackToList(ticketMap, scanner);
+			displayNextPageOfTickets(ticketMap, scanner);
 		}
 		else if(input == 3) {
 			printer.thanksAndExitApp();
@@ -132,6 +134,22 @@ public class TicketPresentation {
 		}
 		
 	}
+	
+
+	public void wantTicketByIDAndBackToList(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
+		printer.enterTicketID();
+		Long id = scanner.nextLong();
+		// Search the Ticket for the ID in HashMap and a summary of ticket is shown
+		displaySummaryTicketById(ticketMap, id);
+		showDescription(ticketMap, id);
+		
+	}
+	
+	
+	
+	
+	//Displaying tickets based on their id
+	
 			
 	// Display ticket with the user input field ID as a key.
 	public void displayTicketById(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
@@ -150,13 +168,15 @@ public class TicketPresentation {
 			
 			showDescription(ticketMap, id);
 			displayMoreTicketsByID(ticketMap, scanner);
-		}else if(input == 2) {
+		}
+		else if(input == 2) {
 			//if user doesn't want to view more tickets exit
 			printer.thanksAndExitApp();
 			System.exit(0); 
 		}
 		
 	}
+	
 	public Ticket displaySummaryTicketById(HashMap<Long, Ticket> ticketMap, Long key) {
 
 		//hashmap stores tickets by id as key, so we look for key input in keys of hashmap
@@ -164,19 +184,23 @@ public class TicketPresentation {
 			printer.ticketHeader();
 			showIndividualTicket(ticketMap.get(key));
 			
-		} else {
+		}
+		else {
 			//if the ticket ID doesn't exist
 			System.out.println("Sorry , We couldn't find your requested ticket ID");
 		}
 		
 		return ticketMap.get(key);
 	}
+	
 	public void displayMoreTicketsByID(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 		printer.displayAnotherTicketById();
 		int displayMoreTicketInput = scanner.nextInt();
+		
 		if(displayMoreTicketInput ==1) {
 			displayTicketById(ticketMap, scanner);
-		}else {
+		}
+		else {
 			//if user doesn't want to view more tickets exit
 			printer.thanksAndExitApp();
 			System.exit(0); 
