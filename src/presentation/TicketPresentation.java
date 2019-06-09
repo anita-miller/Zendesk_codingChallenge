@@ -86,7 +86,6 @@ public class TicketPresentation {
 			printer.invalidInput();
 			displayPrevAndNextPageOfTickets(ticketMap, scanner);
 		}
-		
 	}
 	
 	public void displayPrevPageOfTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
