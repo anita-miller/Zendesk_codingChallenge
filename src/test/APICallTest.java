@@ -8,7 +8,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import org.json.JSONException;
 import org.junit.Test;
 
@@ -53,7 +52,6 @@ public class APICallTest {
 		
 		URL url = new URL("https://api.github.com/users/wefbrwwgre");
 		
-		System.out.print(authentication.settingUpConnection(url).getResponseCode());
 		assertEquals(404, authentication.settingUpConnection(url).getResponseCode());
 	}
 	

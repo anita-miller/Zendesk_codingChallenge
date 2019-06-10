@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import logic.APICall;
 import logic.Ticket;
 import presentation.TicketPresentation;
@@ -107,16 +108,16 @@ public class TicketPresentationTest {
 	public void restoreStreamsshowIndividualTickettest() {
 		System.setOut(null);
 	}
-	@Test
+	@org.junit.Test
 	public void showIndividualTickettest(){
 		System.setOut(new PrintStream(showIndividualTicketOutContent));
 
 		TicketPresentation ticketPresentation = new TicketPresentation();	
 		
-		String expectedPrintValue = "-----------------------------------------------------------"
-				+ "---------------------------------------------------------------------------------------------------------\n"
-				+ "1    | Sample ticket: Meet the ticket                | open       | normal     | 2019-06-03T23:36:20Z"
-				+ "| 381345057874 | 381285073454 | [sample, support, zendesk]     ";
+		String expectedPrintValue = "1    | Sample ticket: Meet the ticket                | open       | normal     "
+				+ "| 2019-06-03T23:36:20Z| 381345057874 | 381285073454 | [sample, support, zendesk]                        \n" + 
+				"\n-------------------------------------------------------------------------------------------------------------"
+				+ "-------------------------------------------------------";
 		
 		//test that the ticket printed by showIndividualTicket() is same as expectedPrintValue
 		ticketPresentation.showIndividualTicket(ticket);
