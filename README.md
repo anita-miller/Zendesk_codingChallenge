@@ -1,8 +1,8 @@
 # Zendesk_codingChallenge
 
 Design Deceisions:
-
-	In this project, the code is seperate into 4 packages logic, main , presentation and Test. the reasong I did not only create 2 packages main and test was to seperation of concerns and responsiblities into different packages and classes. 
+In this project, the code is seperate into 4 packages logic, main , presentation and Test. 
+the reasong I did not only create 2 packages main and test was to seperate different tasks and responsiblities into different packages and classes. 
 
 	Following Information Expert pattern, APICall class based on its responsibility is
 	the only class that has credentials necessary for login and API Call. Keeping high
@@ -25,5 +25,29 @@ Design Deceisions:
 	things.This also, supports low coupling which leads to more robust and maintainable
 	system. for example, if i want to change the data structure that tickets are stored
 	in, i only need to change structure at TicketReader class.
+
+How to run the application:
+    * Clone the repository into your local machine.
+    * cd in to the root folder
+
+    Compile the source code using following command.
+
+        javac -sourcepath src -cp libraries/json-20180813.jar src/Main.java
+
+    Run the application using following command.
+        
+        java -cp src:libraries/json-20180813.jar Main
+    
+Tests :
+    first compile:    
+        
+        javac -sourcepath src -cp libraries/junit-4.10.jar:libraries/json-20180813.jar src/test/*.java
+        
+    run:
+        
+        java -cp src:libraries/junit-4.10.jar:libraries/json-20180813.jar org.junit.runner.JUnitCore test.APICallTest test.TicketPresentationTest test.TicketReaderTest
+
+cd in to the app folder and run the following command.
+
 
 	
