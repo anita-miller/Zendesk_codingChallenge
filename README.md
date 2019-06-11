@@ -1,53 +1,84 @@
 # Zendesk_codingChallenge
 
-Design Deceisions:
-In this project, the code is seperate into 4 packages logic, main , presentation and Test. 
-the reasong I did not only create 2 packages main and test was to seperate different tasks and responsiblities into different packages and classes. 
-
-	Following Information Expert pattern, APICall class based on its responsibility is
-	the only class that has credentials necessary for login and API Call. Keeping high
-	cohesion within our code by having the code for a API Call module all located
-	together and working well together leads to easier testing and modification. It
-	then uses DecryptionClass to decrypt the credentials. 
-
-	Information Expert pattern helps to achive loose coupling, APICall class should be only
-	responsible to connecting to API therefore it shouldn't be responsible for reading
-	the recevied inputstream. 
-	That is why I created the TicketReader to be responsible  to get InputStream from
-	APICall class and read tickets as json objects from the input stream. 
-
-	In this case, some level of coupling needs to exist since TicketReader gets the
-	InputStream from APICall. The idea of loose coupling is not to remove knowledge
-	about other objects, it is meant to minimize that knowledge. 
-
-
-	Splitting the implementation into well-defined pieces makes it easier to find
-	things.This also, supports low coupling which leads to more robust and maintainable
-	system. for example, if i want to change the data structure that tickets are stored
-	in, i only need to change structure at TicketReader class.
-
 How to run the application:
-    * Clone the repository into your local machine.
-    * cd in to the root folder
+* Clone the repository into your local machine.
+* cd in to the root folder
 
-    Compile the source code using following command.
+Compile the source code using following command.
 
-        javac -sourcepath src -cp libraries/json-20180813.jar src/Main.java
+    javac -sourcepath src -cp libraries/json-20180813.jar src/Main.java
 
-    Run the application using following command.
-        
-        java -cp src:libraries/json-20180813.jar Main
-    
+Run the application using following command.
+
+    java -cp src:libraries/json-20180813.jar Main
+
 Tests :
-    first compile:    
-        
-        javac -sourcepath src -cp libraries/junit-4.10.jar:libraries/json-20180813.jar src/test/*.java
-        
-    run:
-        
-        java -cp src:libraries/junit-4.10.jar:libraries/json-20180813.jar org.junit.runner.JUnitCore test.APICallTest test.TicketPresentationTest test.TicketReaderTest
+first compile:    
 
-cd in to the app folder and run the following command.
+    javac -sourcepath src -cp libraries/junit-4.10.jar:libraries/json-20180813.jar src/test/*.java
+
+run:
+
+    java -cp src:libraries/junit-4.10.jar:libraries/json-20180813.jar org.junit.runner.JUnitCore test.APICallTest test.TicketPresentationTest test.TicketReaderTest
 
 
-	
+Design Decisions:
+
+    Code structure:
+
+        In this project, the code is separate into 4 packages logic, main, presentation and Test. 
+        the reason I did not only create 2 packages main and test was to separate concerns and responsibilities into different packages and classes. 
+
+        One of the main classes is APICall which is responsible for connecting to API 
+        and passing the ticket JSON array to another class. 
+        
+        Based Information Expert pattern, APICall class based on its responsibility is 
+        the only class that has credentials necessary for login and API Call. APICall 
+        class is also the only class that class that has access to Decrypt class and 
+        only uses it to decrypt the credentials. 
+        
+        I tried to keep high cohesion within our code by having the code for performing 
+        API Call in its class together that also leads to easier testing and 
+        modification. 
+
+        TicketReader class is responsible to get InputStream from APICall class and 
+        read tickets as json objects from the input stream. 
+
+        Having 2 separate classes responsible for specific tasks only one for first 
+        getting information from API and another for reading the information helps to 
+        achieve loose coupling.  This helps to have more robust and maintainable 
+        system. 
+        for example, if i want to change the data structure that tickets are stored
+        in, i only need to change structure at TicketReader class and won’t have to 
+        modify APICall.
+
+    Storing Credentials:
+
+        Identification credentials are encrypted and stored at Config.properties. 
+        At run time the application decrypts them and uses them to connect to API.
+        I chose this approach and encrypted passwords so unauthorised user won't be
+        able to take the credentials and use them in the URL to access the data. 
+        There is a flaw that decryption code is uploaded to github too so attacker
+        can try to decrypt and use the credentials, but it is only uploaded so 
+        application can be run on Zendesk's team local computer to assess the 
+        application. 
+        In a real-life application, I would keep the decryption code and credential to
+        stay on the server side and called upon somehow. 
+
+    Application path decisions:
+
+        When use runs the application, it can choose to view all of the ticket or one 
+        by one based on id.
+        If user chooses the first options, 25 tickets will be displayed, and at the end 
+        of each set of tickets user will have the options to go to previous, next page 
+        or go back to main menu or choose a specific ticket by id from the list to view 
+        in more details (view its description)or exit the application.
+
+        I added the option for user to be able to choose a specific ticket and view its 
+        description while viewing the list of tickets.  Because it would be useful when 
+        viewing a large amount of data and it would be inconvenient to leave a specific 
+        point in the list to view further data then having to return.
+
+
+
+
