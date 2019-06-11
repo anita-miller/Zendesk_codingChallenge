@@ -27,7 +27,8 @@ Design Decisions:
     Code structure:
 
         In this project, the code is separate into 4 packages logic, main, presentation and Test. 
-        the reason I did not only create 2 packages main and test was to separate concerns and responsibilities into different packages and classes. 
+        the reason I did not only create 2 packages main and test was to separate concerns and 
+        responsibilities into different packages and classes. 
 
         One of the main classes is APICall which is responsible for connecting to API 
         and passing the ticket JSON array to another class. 
@@ -67,7 +68,7 @@ Design Decisions:
 
     Application path decisions:
 
-        When use runs the application, it can choose to view all of the ticket or one 
+        After running the application, user can choose to view all of the ticket or one 
         by one based on id.
         If user chooses the first options, 25 tickets will be displayed, and at the end 
         of each set of tickets user will have the options to go to previous, next page 
