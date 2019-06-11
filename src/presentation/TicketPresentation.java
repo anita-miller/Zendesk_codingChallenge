@@ -14,9 +14,9 @@ import logic.Ticket;
  *
  */
 public class TicketPresentation {
+	
 	private final int NUM_TICKETS_IN_LIST = 25;
 	private PrintClass printer = new PrintClass();
-
 	private int counter = 0;
 	private int pageLimitTicketIndex = NUM_TICKETS_IN_LIST;
 	private boolean headerFlag = true;
@@ -58,92 +58,117 @@ public class TicketPresentation {
 		}
 	}
 	
+	//seprating the feature of going to next and prev into 3 functions since first page only has next page
+	//and last page only has prev page.
 	public void displayPrevAndNextPageOfTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) 
 	{
 		printer.wantToViewNextOrPrevPageOfTicket();
 		input = scanner.nextInt();
 		
-		if(input == 1) 
-		{
+		switch (input) {
+		case 1:
 			//increase pageLimitTicketIndex so next page of ticket can be read
 			pageLimitTicketIndex += NUM_TICKETS_IN_LIST;
-		////if user wishes to leave
-		}else if(input == 2) 
-		{
+			break;
 			
+		case 2:
 			pageLimitTicketIndex = pageLimitTicketIndex - NUM_TICKETS_IN_LIST;
 			//decrease counter by twice as much so it shows prev page tickets up to pageLimitTicketIndex
 			counter = counter - 2*NUM_TICKETS_IN_LIST;
-		}
-		else if(input == 3) {
+			break;
+			
+		case 3:
 			wantTicketByIDAndBackToList(ticketMap, scanner);
 			displayPrevAndNextPageOfTickets(ticketMap, scanner);
-		}
-		else if(input == 4) {
+			break;
+			
+		case 4:
 			goBackToMenu(ticketMap, scanner);
-		}
-		else if(input == 5) {
+			break;
+			
+		case 5:
 			printer.thanksAndExitApp();
 			System.exit(0); 
-		}
-		else {
+			break;
+		default:
+			// message for wrong input.
 			printer.invalidInput();
 			displayPrevAndNextPageOfTickets(ticketMap, scanner);
+			break;
 		}
+		
 	}
+	
+	
 	
 	public void displayPrevPageOfTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 		printer.wantToViewPrevPageOfTicket();
 		input = scanner.nextInt();
 		
-		if(input == 1) {
+		switch (input) {
+		case 1:
 			pageLimitTicketIndex = pageLimitTicketIndex - NUM_TICKETS_IN_LIST;
 			//decrease counter by twice as much so it shows prev page tickets up to pageLimitTicketIndex
 			counter = counter - 2*NUM_TICKETS_IN_LIST;
-		////if user wishes to leave
-		}else if(input == 2) {
+			break;
+			
+		case 2:
 			wantTicketByIDAndBackToList(ticketMap, scanner);
 			displayPrevPageOfTickets(ticketMap, scanner);
-		}
-		else if(input == 3) {
+			break;
+			
+		case 3:
 			goBackToMenu(ticketMap, scanner);
-		}
-		else if(input == 4) {
+			break;
+			
+		case 4:
 			printer.thanksAndExitApp();
 			System.exit(0); 
-		}else {
+			break;
+			
+		default:
+			// message for wrong input.
 			printer.invalidInput();
 			displayPrevPageOfTickets(ticketMap, scanner);
+			break;
 		}
-		
 	}
+	
+	
 	public void displayNextPageOfTickets(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 		printer.wantToViewNextPageOfTicket();
 		input = scanner.nextInt();
 		
-		if(input == 1) {
-		pageLimitTicketIndex += NUM_TICKETS_IN_LIST;
-		////if user wishes to leave
-		}
-		else if(input == 2) { 
+		switch (input) {
+		case 1:
+			//increase the pageLimitTicketIndex to view next set of tickets
+			pageLimitTicketIndex += NUM_TICKETS_IN_LIST;
+			break;
+			
+		case 2:
+			//view a ticket by id while staying in the same point at list
 			wantTicketByIDAndBackToList(ticketMap, scanner);
 			displayNextPageOfTickets(ticketMap, scanner);
-		}
-		else if(input == 3) {
+			break;
+			
+		case 3:
 			goBackToMenu(ticketMap, scanner);
-		}
-		else if(input == 4) {
+			break;
+			
+		case 4:
 			printer.thanksAndExitApp();
 			System.exit(0); 
-		}
-		else {
+			break;
+			
+		default:
+			// message for wrong input.
 			printer.invalidInput();
 			displayNextPageOfTickets(ticketMap, scanner);
+			break;
 		}
-		
 	}
 	
-
+	//view ticket by Id without leaving specific point in the list therefore no need to comeback and more convenient
 	public void wantTicketByIDAndBackToList(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 		printer.enterTicketID();
 		Long id = scanner.nextLong();
@@ -153,7 +178,7 @@ public class TicketPresentation {
 		
 	}
 	
-	
+	//takes the user back to main menu at started and resets all the changes
 	public void goBackToMenu(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 		printer.showOptions();
 		input = scanner.nextInt();
@@ -174,7 +199,7 @@ public class TicketPresentation {
 		}
 		
 	}
-	//Displaying tickets based on their id
+
 	
 			
 	// Display ticket with the user input field ID as a key.
@@ -206,6 +231,7 @@ public class TicketPresentation {
 		
 	}
 	
+	//displays the some fields of a chosen ticket, doesn't show the description
 	public Ticket displaySummaryTicketById(HashMap<Long, Ticket> ticketMap, Long key) {
 
 		//hashmap stores tickets by id as key, so we look for key input in keys of hashmap
@@ -222,6 +248,7 @@ public class TicketPresentation {
 		return ticketMap.get(key);
 	}
 	
+	//asks user if it wants to see more tickets, if yes calls the displayTicketById() functions
 	public void displayMoreTicketsByID(HashMap<Long, Ticket> ticketMap, Scanner scanner) {
 		printer.displayAnotherTicketById();
 		int displayMoreTicketInput = scanner.nextInt();
@@ -236,7 +263,7 @@ public class TicketPresentation {
 		}
 		
 	}
-	//show deatils of a given ticken
+	//show details of a given ticket
 	public void showIndividualTicket(Ticket ticket) {
 
 		long id = ticket.getId();
@@ -254,6 +281,7 @@ public class TicketPresentation {
 		
 	}
 	
+	//shows the description of a specific ticket
 	public void showDescription(HashMap<Long, Ticket> ticketMap, Long key) 
 	{
 		Ticket ticket = null;
