@@ -2,11 +2,14 @@
 
 How to run the application:
 * Clone the repository into your local machine.
+    git clone https://github.com/anitanaseri/Zendesk_codingChallenge.git
+    
 * cd in to the root folder
 
 Compile the source code using following command.
 
     javac -sourcepath src -cp libraries/json-20180813.jar src/Main.java
+    git@github.com:priyankamk/Zendesk_Ticket_Viewer.git
 
 Run the application using following command.
 
@@ -81,5 +84,25 @@ Design Decisions:
         point in the list to view further data then having to return.
 
 
+    Tests:
+        APICall tests :
+            I wrote one test to check when facing an unavailable API application responds 
+            error code and does not crash.
+            Another test is to check that for wrong credentials 401 error is returned.
+            
+        TicketReader tests:
+            First test is checking that when ticketDataReader get an InputStream it parses
+            the string correctly. it's done by giving the function an example input and
+            check if output matches it.
+            Second test checks that createTicket function correctly creates ticket.
+        
+        TicketPresentation tests:
+            First test checks that displaySummaryTicketById function fetches ticket with 
+            ID 1 is correctly.
+            Second test checks that displaySummaryTicketById function handles the request
+            for a tikcet when the given ID doesn't exist correctly.
+            Third test checks that the ticket printed by showIndividualTicket() is 
+            same as expected print value.
+    
 
 
