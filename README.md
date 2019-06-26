@@ -9,7 +9,6 @@ How to run the application:
 Compile the source code using following command.
 
     javac -sourcepath src -cp libraries/json-20180813.jar src/Main.java
-    git@github.com:anitanaseri/Zendesk_codingChallenge.git
 
 Run the application using following command.
 
